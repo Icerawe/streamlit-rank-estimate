@@ -41,7 +41,7 @@ with tab1:
             return "มือแบก ไม่สามารถคู่กันได้"
         elif avg > 7.5:
             return "มือ S"
-        elif avg > 5:
+        elif avg >= 5:
             return "มือ N"
         elif avg > 1:
             return "มือ BG"
@@ -58,7 +58,7 @@ with tab1:
 with tab2:
     st.header("📝 ตรวจสอบรายชื่อ")
     df_pairs = get_sheet_data(API_KEY, SPREADSHEET_ID, "register")
-    df_pairs.columns = ["Team", "Player 1", "Player 2", "Rank"]  # Ensure column names are correct
+    df_pairs = df_pairs[["Team", "Player 1", "Player 2", "Rank"]]
 
     # Optional: convert Rank to categorical for custom sorting
     rank_order = ["BG", "N", "S"]
@@ -67,6 +67,7 @@ with tab2:
     # Group by Rank and show the table
     for rank in rank_order:
         df_ranked = df_pairs[df_pairs["Rank"].str.upper() == rank.upper()]
+        df_ranked = df_ranked.sort_values(by=["Team"])
         if not df_ranked.empty:
             df_ranked["Order"] = range(1, len(df_ranked) + 1)
             df_ranked.set_index("Order", inplace=True)
