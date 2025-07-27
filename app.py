@@ -24,13 +24,13 @@ with tab1:
         st.markdown("### 🧑‍🤝‍🧑 Player 1")
         team1 = st.selectbox("ทีมของผู้เล่น 1", df["Team"].unique(), key="team1")
         name1 = st.selectbox("ชื่อผู้เล่น 1", df[df["Team"] == team1]["Name"], key="name1")
-        score1 = df[df["Name"] == name1]["Score"].values[0]
+        score1 = df[(df["Name"] == name1) & (df["Team"] == team1)]["Score"].values[0]
 
     with col2:
         st.markdown("### 🧑‍🤝‍🧑 Player 2")
         team2 = st.selectbox("ทีมของผู้เล่น 2", df["Team"].unique(), key="team2")
         name2 = st.selectbox("ชื่อผู้เล่น 2", df[df["Team"] == team2]["Name"], key="name2")
-        score2 = df[df["Name"] == name2]["Score"].values[0]
+        score2 = df[(df["Name"] == name2) & (df["Team"] == team2)]["Score"].values[0]
 
     def estimate_rank(score1, score2, avg):
         if abs(score1 - score2) >= 5:
@@ -54,6 +54,7 @@ with tab1:
         if rank.startswith("มือแบก"):
             st.error(f"Estimated Rank: **{rank}**")
         else:
+            st.text(avg_score)
             st.success(f"Estimated Rank: **{rank}**")
 
 with tab2:
