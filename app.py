@@ -39,11 +39,11 @@ with tab1:
     def estimate_rank(score1, score2, avg):
         if abs(score1 - score2) >= 5:
             return "มือแบก ไม่สามารถคู่กันได้"
-        elif avg > 7.5:
+        elif avg >= 7.5:
             return "มือ S"
         elif avg >= 5:
             return "มือ N"
-        elif avg > 1:
+        elif avg >= 1:
             return "มือ BG"
         else:
             return "ต้องมีอะไรผิด"
