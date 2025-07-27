@@ -61,7 +61,7 @@ with tab2:
     df_pairs = df_pairs[["Team", "Player 1", "Player 2", "Rank"]]
 
     # Optional: convert Rank to categorical for custom sorting
-    rank_order = ["BG", "N", "S"]
+    rank_order = ["S", "N", "BG",]
     df_pairs["Rank"] = df_pairs["Rank"].astype(str)
 
     # Group by Rank and show the table
