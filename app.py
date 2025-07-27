@@ -32,10 +32,6 @@ with tab1:
         name2 = st.selectbox("ชื่อผู้เล่น 2", df[df["Team"] == team2]["Name"], key="name2")
         score2 = df[df["Name"] == name2]["Score"].values[0]
 
-    # Estimate
-    avg_score = (score1 + score2) / 2
-    score_diff = abs(score1 - score2)
-
     def estimate_rank(score1, score2, avg):
         if abs(score1 - score2) >= 5:
             return "มือแบก ไม่สามารถคู่กันได้"
@@ -47,13 +43,18 @@ with tab1:
             return "มือ BG"
         else:
             return "ต้องมีอะไรผิด"
-
-    rank = estimate_rank(score1, score2, avg_score)
-    st.subheader("🎯 ผลการประเมิน Rank ของผู้เล่น")
-    if rank.startswith("มือแบก"):
-        st.error(f"Estimated Rank: **{rank}**")
+        
+        # Estimate
+    avg_score = (score1 + score2) / 2
+    if name1 == name2 and team1 == team2:
+        st.warning("โปรดเลือกผู้เล่นที่ต่างกัน")
     else:
-        st.success(f"Estimated Rank: **{rank}**")
+        rank = estimate_rank(score1, score2, avg_score)
+        st.subheader("🎯 ผลการประเมิน Rank ของผู้เล่น")
+        if rank.startswith("มือแบก"):
+            st.error(f"Estimated Rank: **{rank}**")
+        else:
+            st.success(f"Estimated Rank: **{rank}**")
 
 with tab2:
     st.header("📝 ตรวจสอบรายชื่อ")
