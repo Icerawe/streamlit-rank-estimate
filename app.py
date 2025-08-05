@@ -54,7 +54,7 @@ with tab1:
         if rank.startswith("มือแบก"):
             st.error(f"Estimated Rank: **{rank}**")
         else:
-            st.text(avg_score)
+            # st.text(avg_score)
             st.success(f"Estimated Rank: **{rank}**")
 
 with tab2:
